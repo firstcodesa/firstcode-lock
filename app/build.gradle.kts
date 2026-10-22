@@ -19,6 +19,7 @@ android {
     }
     kotlinOptions { jvmTarget = "17" }
     buildTypes { getByName("release") { isMinifyEnabled = false } }
+    bundle { language { enableSplit = false } }
     lint { abortOnError = true; checkReleaseBuilds = true }
 }
 dependencies {
