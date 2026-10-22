@@ -9,9 +9,11 @@
   ],
   "internet_permission": false,
   "reads_window_content": false,
-  "apk_build": "NOT_RUN: Android SDK/Gradle/JDK compiler unavailable",
-  "unit_tests": "WRITTEN_NOT_RUN",
-  "android_lint": "NOT_RUN",
+  "apk_build": "PASSED GitHub Actions 39715671508",
+  "unit_tests": "PASSED",
+  "android_lint": "PASSED",
   "device_test": "NOT_RUN",
-  "apk_produced": false
+  "apk_produced": true,
+  "apk_signature": "v2 verified",
+  "apk_sha256": "5263d8345613eed0fb574f21aa9ed4a221d3cfbe74772e3c7e890a002165e43d"
 }
