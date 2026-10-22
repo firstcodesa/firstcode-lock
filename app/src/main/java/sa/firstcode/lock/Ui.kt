@@ -15,7 +15,7 @@ class Ui(val activity: Activity) {
     val card = Color.parseColor(if (dark) "#17253A" else "#FFFFFF")
     val ink = Color.parseColor(if (dark) "#F5F8FC" else "#172433")
     val muted = Color.parseColor(if (dark) "#A7B7C9" else "#526477")
-    val accent = Color.parseColor("#26D9B0")
+    val accent = Color.parseColor(if (dark) "#26D9B0" else "#087B64")
     fun dp(n: Int) = (n * activity.resources.displayMetrics.density).toInt()
     fun shape(color: Int, radius: Int = 18) = GradientDrawable().apply { setColor(color); cornerRadius = dp(radius).toFloat() }
     fun text(s: String, size: Float = 16f, color: Int = ink) = TextView(activity).apply {
@@ -44,13 +44,16 @@ class Ui(val activity: Activity) {
         return column
     }
     fun header(root: LinearLayout, title: String, subtitle: String) {
-        root.addView(ImageView(activity).apply {
-            setImageResource(sa.firstcode.lock.R.drawable.ic_lock)
+        val line = LinearLayout(activity).apply { gravity = Gravity.CENTER_VERTICAL }
+        line.addView(ImageView(activity).apply {
+            setImageResource(R.drawable.ic_lock)
             importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
-        }, LinearLayout.LayoutParams(dp(52), dp(52)).apply { bottomMargin = dp(12) })
-        root.addView(text(activity.tr(R.string.copy_000), 12f, accent))
-        root.addView(text(title, 30f).apply { typeface = Typeface.DEFAULT_BOLD })
-        root.addView(text(subtitle, 14f, muted).apply { setPadding(0, dp(4), 0, dp(18)) })
+        }, LinearLayout.LayoutParams(dp(46), dp(46)))
+        line.addView(text(title, 26f).apply {
+            typeface = Typeface.DEFAULT_BOLD; setPadding(dp(12), 0, dp(12), 0)
+        }, LinearLayout.LayoutParams(0, -2, 1f))
+        root.addView(line)
+        root.addView(text(subtitle, 14f, muted).apply { setPadding(0, dp(10), 0, dp(18)) })
     }
 }
 

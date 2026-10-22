@@ -76,11 +76,14 @@ class MainActivity : AuthActivity() {
         val count = ui.text(this@MainActivity.tr(R.string.copy_024 , vault.protected.size), 14f, ui.muted); status.addView(count)
         status.addView(ui.text(if (RemovalAdmin.active(this)) this@MainActivity.tr(R.string.copy_013) else this@MainActivity.tr(R.string.copy_014), 13f, ui.muted))
         root.addView(status)
-        root.addView(ui.button(if (vault.enabled) this@MainActivity.tr(R.string.copy_025) else this@MainActivity.tr(R.string.copy_026)) {
+        val actions = LinearLayout(this)
+        fun quick(button: Button) { actions.addView(button, LinearLayout.LayoutParams(0, -2, 1f).apply { setMargins(ui.dp(3), ui.dp(8), ui.dp(3), ui.dp(4)) }) }
+        quick(ui.button(if (vault.enabled) tr(R.string.copy_025) else tr(R.string.copy_026)) {
             vault.enabled = !vault.enabled; dashboard()
         })
-        root.addView(ui.button(if (live) this@MainActivity.tr(R.string.copy_027) else this@MainActivity.tr(R.string.copy_028)) { consentDialog() })
-        root.addView(ui.button(this@MainActivity.tr(R.string.copy_029)) { settings() })
+        quick(ui.button(tr(R.string.copy_029)) { settings() })
+        root.addView(actions)
+        if (LockService.instance == null || !vault.consent) root.addView(ui.button(tr(R.string.copy_028)) { consentDialog() })
         root.addView(ui.text(this@MainActivity.tr(R.string.copy_030), 23f).apply { typeface = Typeface.DEFAULT_BOLD })
         root.addView(ui.text(this@MainActivity.tr(R.string.copy_031), 14f, ui.muted))
         val search = EditText(this).apply {
@@ -111,7 +114,7 @@ class MainActivity : AuthActivity() {
                             if (checked) selected.add(app.pkg) else selected.remove(app.pkg)
                             vault.protected = selected
                             count.text = this@MainActivity.tr(R.string.copy_034 , selected.size)
-                            row.post { if (authenticated) render(search.text.toString()) }
+                            row.post { if (authenticated && version == screenVersion) render(search.text.toString()) }
                         }
                     }
                 }
@@ -120,8 +123,10 @@ class MainActivity : AuthActivity() {
             if (list.childCount == 0) list.addView(ui.text(this@MainActivity.tr(R.string.copy_035), 15f, ui.muted))
         }
         val bulk = ui.column()
+        val bulkActions = LinearLayout(this)
+        bulk.addView(bulkActions)
         root.addView(bulk, root.indexOfChild(search))
-        bulk.addView(ui.button(this@MainActivity.tr(R.string.copy_036)) {
+        bulkActions.addView(ui.button(this@MainActivity.tr(R.string.copy_036)) {
             if (catalog.isNotEmpty()) AlertDialog.Builder(this).setTitle(this@MainActivity.tr(R.string.copy_037))
                 .setMessage(this@MainActivity.tr(R.string.copy_038))
                 .setPositiveButton(this@MainActivity.tr(R.string.copy_039)) { _, _ ->
@@ -129,13 +134,18 @@ class MainActivity : AuthActivity() {
                     count.text = this@MainActivity.tr(R.string.copy_024 , vault.protected.size); render(search.text.toString())
                 }.setNegativeButton(this@MainActivity.tr(R.string.copy_040), null).show()
         })
-        bulk.addView(ui.button(this@MainActivity.tr(R.string.copy_041)) {
+        bulkActions.addView(ui.button(this@MainActivity.tr(R.string.copy_041)) {
             AlertDialog.Builder(this).setTitle(this@MainActivity.tr(R.string.copy_042))
                 .setMessage(this@MainActivity.tr(R.string.copy_043))
                 .setPositiveButton(this@MainActivity.tr(R.string.copy_044)) { _, _ ->
                     vault.protected = emptySet(); count.text = this@MainActivity.tr(R.string.copy_045); render(search.text.toString())
                 }.setNegativeButton(this@MainActivity.tr(R.string.copy_046), null).show()
         })
+        for (index in 0 until bulkActions.childCount) {
+            bulkActions.getChildAt(index).layoutParams = LinearLayout.LayoutParams(0, -2, 1f).apply {
+                setMargins(ui.dp(3), ui.dp(4), ui.dp(3), ui.dp(4))
+            }
+        }
         bulk.addView(Switch(this).apply {
             text = this@MainActivity.tr(R.string.copy_047); setTextColor(ui.ink); minHeight = ui.dp(48)
             isChecked = onlyProtected
@@ -173,6 +183,7 @@ class MainActivity : AuthActivity() {
                 setOnCheckedChangeListener { _, value -> action(value) }
             })
         }
+        root.addView(ui.button(tr(R.string.copy_027)) { consentDialog() })
         root.addView(ui.text(this@MainActivity.tr(R.string.copy_055), 21f))
         root.addView(ui.text(if (RemovalAdmin.active(this)) this@MainActivity.tr(R.string.copy_056) else this@MainActivity.tr(R.string.copy_057), 14f, ui.muted))
         root.addView(ui.button(if (RemovalAdmin.active(this)) this@MainActivity.tr(R.string.copy_058) else this@MainActivity.tr(R.string.copy_059)) {
@@ -201,10 +212,10 @@ class MainActivity : AuthActivity() {
                     vault.english = index == 1; dialog.dismiss(); settings()
                 }.setNegativeButton(this@MainActivity.tr(R.string.copy_040), null).show()
         })
+        toggle(this@MainActivity.tr(R.string.copy_071), vault.dark) { vault.dark = it; settings() }
         toggle(this@MainActivity.tr(R.string.copy_068), vault.protectedFirst) { vault.protectedFirst = it }
         toggle(this@MainActivity.tr(R.string.copy_069), vault.showAppName) { vault.showAppName = it }
         root.addView(ui.text(this@MainActivity.tr(R.string.copy_070), 21f))
-        toggle(this@MainActivity.tr(R.string.copy_071), vault.dark) { vault.dark = it; settings() }
         toggle(this@MainActivity.tr(R.string.copy_072), vault.biometrics) { enabled ->
             if (!enabled) vault.biometrics = false
             else {
