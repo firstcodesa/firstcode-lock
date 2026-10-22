@@ -1,0 +1,17 @@
+{
+  "version": "0.1.0",
+  "xml_parse": "passed",
+  "xml_files": 5,
+  "kotlin_files": 9,
+  "component_sources_present": "passed",
+  "permissions": [
+    "android.permission.USE_BIOMETRIC"
+  ],
+  "internet_permission": false,
+  "reads_window_content": false,
+  "apk_build": "NOT_RUN: Android SDK/Gradle/JDK compiler unavailable",
+  "unit_tests": "WRITTEN_NOT_RUN",
+  "android_lint": "NOT_RUN",
+  "device_test": "NOT_RUN",
+  "apk_produced": false
+}
