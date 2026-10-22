@@ -46,7 +46,7 @@ class LockService : AccessibilityService() {
         protect(pkg)
     }
     private fun protect(pkg: String) {
-        if (!vault.configured || !vault.consent || pkg !in vault.protected) return
+        if (!vault.configured || !vault.enabled || !vault.consent || pkg !in vault.protected) return
         if (!(getSystemService(POWER_SERVICE) as PowerManager).isInteractive) return
         if (sessions.allowed(pkg, SystemClock.elapsedRealtime(), vault.grace)) return
         if (launching == pkg && SystemClock.elapsedRealtime() - launchAt < 1500) return

@@ -33,10 +33,10 @@ jobs:
           "$ANDROID_HOME/build-tools/35.0.0/aapt" dump permissions "$APK" | tee permissions.txt
           if grep -q 'android.permission.INTERNET' permissions.txt; then exit 1; fi
           mkdir -p deliverable
-          cp "$APK" deliverable/FirstCode-Lock-0.1.0-test.apk
+          cp "$APK" deliverable/FirstCode-Lock-0.2.0-test.apk
           sha256sum deliverable/*.apk > deliverable/SHA256SUMS.txt
       - uses: actions/upload-artifact@v4
         with:
-          name: FirstCode-Lock-0.1.0-test-APK
+          name: FirstCode-Lock-0.2.0-test-APK
           path: deliverable/
           retention-days: 30

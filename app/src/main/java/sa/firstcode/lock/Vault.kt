@@ -9,6 +9,18 @@ class Vault(context: Context) {
     private val app = context.applicationContext
     private val prefs = app.getSharedPreferences("vault", Context.MODE_PRIVATE)
     val configured: Boolean get() = prefs.contains("hash") && prefs.contains("salt")
+    var english: Boolean
+        get() = prefs.getBoolean("english", false)
+        set(value) { prefs.edit().putBoolean("english", value).apply() }
+    var enabled: Boolean
+        get() = prefs.getBoolean("enabled", true)
+        set(value) { prefs.edit().putBoolean("enabled", value).apply(); LockService.instance?.sessions?.clear() }
+    var protectedFirst: Boolean
+        get() = prefs.getBoolean("protectedFirst", true)
+        set(value) { prefs.edit().putBoolean("protectedFirst", value).apply() }
+    var showAppName: Boolean
+        get() = prefs.getBoolean("showAppName", true)
+        set(value) { prefs.edit().putBoolean("showAppName", value).apply() }
     var dark: Boolean
         get() = prefs.getBoolean("dark", true)
         set(value) { prefs.edit().putBoolean("dark", value).apply() }

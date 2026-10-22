@@ -11,16 +11,16 @@ class GateActivity : AuthActivity() {
     private fun showGate() {
         target = intent.getStringExtra("target") ?: ""
         val vault = Vault(this)
-        if (target.isBlank() || target !in vault.protected || !vault.configured) { finish(); return }
+        if (target.isBlank() || target !in vault.protected || !vault.configured || !vault.enabled || !vault.consent) { finish(); return }
         val ui = Ui(this); val root = ui.root()
-        ui.header(root, "تطبيق محمي", AppCatalog.label(this, target))
+        ui.header(root, this@GateActivity.tr(R.string.copy_002), if (vault.showAppName) AppCatalog.label(this, target) else this@GateActivity.tr(R.string.copy_003))
         pinAuth(ui, root, {
             val service = LockService.instance
             if (service != null) { service.unlocked(target); finish() }
             else { home() }
         })
-        root.addView(ui.button("العودة للشاشة الرئيسية") { home() })
-        root.addView(ui.text("حماية محلية • بدون إعلانات", 12f, ui.muted))
+        root.addView(ui.button(this@GateActivity.tr(R.string.copy_004)) { home() })
+        root.addView(ui.text(this@GateActivity.tr(R.string.copy_005), 12f, ui.muted))
     }
     private fun home() {
         startActivity(Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))

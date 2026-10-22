@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">قفل الكود الأول</string>
+    <string name="accessibility_description">يرصد اسم التطبيق الظاهر لعرض شاشة القفل للتطبيقات التي تختارها. لا يقرأ نصوص الشاشة أو الرسائل، ولا يسجل ما تكتبه، ولا يتصل بالإنترنت. يمكنك إيقاف الخدمة في أي وقت من إعدادات أندرويد.</string>
+<string name="removal_label">حماية قفل الكود الأول من الإزالة</string>
+</resources>

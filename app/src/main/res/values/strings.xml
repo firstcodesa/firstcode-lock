@@ -1,4 +1,5 @@
 <resources>
-    <string name="app_name">قفل الكود الأول</string>
-    <string name="accessibility_description">يرصد اسم التطبيق الظاهر لعرض شاشة القفل للتطبيقات التي تختارها. لا يقرأ نصوص الشاشة أو الرسائل، ولا يسجل ما تكتبه، ولا يتصل بالإنترنت. يمكنك إيقاف الخدمة في أي وقت من إعدادات أندرويد.</string>
+<string name="app_name">FirstCode Lock</string>
+<string name="accessibility_description">Detects the foreground app to show a lock screen for apps you select. Does not read screen text or messages, record typing, or access the internet. You can disable the service in Android settings at any time.</string>
+<string name="removal_label">FirstCode Lock removal protection</string>
 </resources>
