@@ -93,13 +93,13 @@
     <string name="copy_091">استخدم قفل شاشة الهاتف أيضًا. يمكن تعطيل الخدمة أو مسؤول الجهاز من إعدادات أندرويد. قد يظهر التطبيق للحظة قبل قفله؛ الإشعارات وصور التطبيقات الأخيرة غير محجوبة.\n\nإذا توقفت الخدمة، راجع إعدادات البطارية وإمكانية الوصول. لا تمنح أي صلاحية إلا بعد فهم استخدامها.</string>
     <string name="copy_092">فهمت</string>
     <string name="copy_093">المبرمج: أبوغازي العتيبي</string>
-    <string name="copy_094">الإصدار 0.2.0</string>
+    <string name="copy_094">الإصدار 0.2.1</string>
     <string name="copy_095">العودة إلى التطبيقات</string>
     <string name="copy_096">أدخل رمزك المكون من 6 أرقام</string>
     <string name="copy_097">حاول بعد %1$s ثانية</string>
     <string name="copy_098">جارٍ التحقق…</string>
     <string name="copy_099">الرمز غير صحيح. بعد 5 محاولات يتم الانتظار 30 ثانية.</string>
-    <string name="copy_100">فتح بالبصمة</string>
+    <string name="copy_100">إعادة محاولة البصمة</string>
     <string name="copy_101">تحقق من هويتك بالبصمة المسجلة على الجهاز</string>
     <string name="copy_102">استخدام الرمز</string>
     <string name="copy_103">تعذر التحقق بالبصمة. استخدم الرمز.</string>

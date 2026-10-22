@@ -37,4 +37,19 @@ class SecurityTest {
         assertFalse(s.allowed("a", 101, 60_000))
         assertFalse(UnlockSessions().allowed("a", 101, 60_000))
     }
+    @Test fun biometricSuccessIsConsumedOnlyOnce() {
+        val r = AuthRequests(); val t = r.start(1)
+        assertTrue(r.consume(t, 1)); assertFalse(r.consume(t, 1))
+    }
+    @Test fun biometricCannotUnlockAfterCancellationOrScreenChange() {
+        val r = AuthRequests(); val t = r.start(1); r.cancel()
+        assertFalse(r.consume(t, 1))
+        val newer = r.start(2)
+        assertFalse(r.consume(t, 2)); assertFalse(r.consume(newer, 3))
+        assertTrue(r.consume(newer, 2))
+    }
+    @Test fun oldBiometricCallbackCannotReplaceNewRequest() {
+        val r = AuthRequests(); val old = r.start(1); val fresh = r.start(1)
+        assertFalse(r.consume(old, 1)); assertTrue(r.consume(fresh, 1))
+    }
 }

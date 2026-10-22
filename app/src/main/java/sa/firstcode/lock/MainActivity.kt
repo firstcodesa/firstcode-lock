@@ -220,7 +220,7 @@ class MainActivity : AuthActivity() {
             if (!enabled) vault.biometrics = false
             else {
                 val message = ui.text(this@MainActivity.tr(R.string.copy_073), 14f, ui.muted); root.addView(message)
-                biometric(message) { vault.biometrics = true; settings() }
+                biometric(message, onFallback = { settings() }) { vault.biometrics = true; settings() }
                 // Keep persisted switch off until Android confirms enrollment/authentication.
                 vault.biometrics = false
             }

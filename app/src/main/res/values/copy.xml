@@ -93,13 +93,13 @@
     <string name="copy_091">Use your phone screen lock too. The service and device admin can be disabled in Android settings. An app may appear briefly before locking; notifications and recent-app previews are not hidden.\n\nIf the service stops, review battery and accessibility settings. Grant permissions only after understanding their purpose.</string>
     <string name="copy_092">Got it</string>
     <string name="copy_093">Developer: Abu Ghazi Al-Otaibi</string>
-    <string name="copy_094">Version 0.2.0</string>
+    <string name="copy_094">Version 0.2.1</string>
     <string name="copy_095">Back to apps</string>
     <string name="copy_096">Enter your 6-digit PIN</string>
     <string name="copy_097">Try again in %1$s seconds</string>
     <string name="copy_098">Verifying…</string>
     <string name="copy_099">Incorrect PIN. Five failed attempts require a 30-second wait.</string>
-    <string name="copy_100">Unlock with biometrics</string>
+    <string name="copy_100">Try biometrics again</string>
     <string name="copy_101">Verify with biometrics enrolled on your device</string>
     <string name="copy_102">Use PIN</string>
     <string name="copy_103">Biometric verification failed. Use your PIN.</string>

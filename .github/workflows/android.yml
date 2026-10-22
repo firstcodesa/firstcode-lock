@@ -24,19 +24,41 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.11.1'
-      - name: Test, lint, and build signed debug APK
-        run: gradle --no-daemon :app:testDebugUnitTest :app:lintDebug :app:assembleDebug
-      - name: Verify APK signature and permissions
+      - name: Test, lint, and build release APK
+        run: gradle --no-daemon :app:testDebugUnitTest :app:lintRelease :app:assembleRelease :app:assembleDebugAndroidTest
+      - name: Enable emulator acceleration
         run: |
-          APK=app/build/outputs/apk/debug/app-debug.apk
-          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose "$APK"
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: Verify Android behavior on API 35
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          arch: x86_64
+          target: google_apis
+          disable-animations: true
+          script: gradle --no-daemon :app:connectedDebugAndroidTest
+      - name: Package unsigned release and signing tool
+        run: |
+          APK=app/build/outputs/apk/release/app-release-unsigned.apk
           "$ANDROID_HOME/build-tools/35.0.0/aapt" dump permissions "$APK" | tee permissions.txt
           if grep -q 'android.permission.INTERNET' permissions.txt; then exit 1; fi
+          if "$ANDROID_HOME/build-tools/35.0.0/aapt" dump badging "$APK" | grep -q 'application-debuggable'; then exit 1; fi
           mkdir -p deliverable
-          cp "$APK" deliverable/FirstCode-Lock-0.2.0-test.apk
-          sha256sum deliverable/*.apk > deliverable/SHA256SUMS.txt
+          cp "$APK" deliverable/FirstCode-Lock-0.2.1-unsigned.apk
+          cp "$ANDROID_HOME/build-tools/35.0.0/lib/apksigner.jar" deliverable/apksigner.jar
+          sha256sum deliverable/* > deliverable/SHA256SUMS.txt
       - uses: actions/upload-artifact@v4
         with:
-          name: FirstCode-Lock-0.2.0-test-APK
+          name: FirstCode-Lock-0.2.1-release-inputs
           path: deliverable/
+          retention-days: 30
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: FirstCode-Lock-0.2.1-test-results
+          path: |
+            app/build/reports/
+            app/build/outputs/androidTest-results/
           retention-days: 30
