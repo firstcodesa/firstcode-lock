@@ -1,1 +1,29 @@
-{"version":"0.2.0","build":"pending CI","device_test":"not run by developer; user reports 0.1.0 works","removal_protection":"optional device administrator; owner can deactivate"}
+{
+  "version": "0.2.1",
+  "build_variant": "release",
+  "debuggable": false,
+  "source_commit": "16e2c566d59a15f64cf314960e6877922edf15d1",
+  "ci_run": "https://github.com/firstcodesa/firstcode-lock/actions/runs/39754511425",
+  "unit_tests": {
+    "passed": 8,
+    "failed": 0
+  },
+  "android_emulator_tests": {
+    "api": 35,
+    "passed": 5,
+    "failed": 0,
+    "skipped": 0
+  },
+  "lint": {
+    "Warning": 11
+  },
+  "release_signature": "APK Signature Scheme v3 verified using apksigner",
+  "signer_sha256": "d323370433d1d3e934bbfc80b115652b7f8e9fbd6594bb416c2b14bf986d5d94",
+  "apk_sha256": "c142e40416859bc6b0da0cb3acbd7312ef44dfc19eb70029905e2224dec1c49a",
+  "internet_permission": false,
+  "retrieves_window_content": false,
+  "admin_policies": [],
+  "device_test": "physical device not tested by developer; user reported 0.1.0 working",
+  "play_protect_review": "not performed; no approval claimed",
+  "cloud_and_device_transfer_excluded": true
+}

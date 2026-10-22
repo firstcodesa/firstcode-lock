@@ -5,3 +5,7 @@ local.properties
 *.jks
 *.keystore
 *.apk
+*.p12
+*.pfx
+keystore.properties
+.env
