@@ -49,10 +49,10 @@ class DeviceChecks {
     }
     @Test fun manifestHasNoNetworkOrDangerousDataPermissions() {
         val p = context.packageManager.getPackageInfo(context.packageName, PackageManager.GET_PERMISSIONS or PackageManager.GET_SERVICES or PackageManager.GET_RECEIVERS)
-        assertEquals(setOf("android.permission.USE_BIOMETRIC"), p.requestedPermissions.toSet())
+        assertEquals(setOf("android.permission.USE_BIOMETRIC"), p.requestedPermissions.orEmpty().toSet())
         assertEquals(0, p.applicationInfo!!.flags and ApplicationInfo.FLAG_ALLOW_BACKUP)
-        assertEquals("android.permission.BIND_ACCESSIBILITY_SERVICE", p.services.single().permission)
-        assertEquals("android.permission.BIND_DEVICE_ADMIN", p.receivers.single().permission)
+        assertEquals("android.permission.BIND_ACCESSIBILITY_SERVICE", p.services.orEmpty().single().permission)
+        assertEquals("android.permission.BIND_DEVICE_ADMIN", p.receivers.orEmpty().single().permission)
         assertFalse(RemovalAdmin.active(context))
     }
     @Test fun arabicAndEnglishScreensSupportPinLoginAndPause() {
